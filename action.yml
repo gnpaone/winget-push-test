@@ -33,6 +33,7 @@ inputs:
     default: winget-pkgs
   forcearch:
     description: 'Force the submitting architecture for the given package URLs'
+    type: boolean
     default: false
 runs:
   using: "composite"
@@ -109,7 +110,8 @@ runs:
         Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
         ./wingetcreate-self-contained.exe update -u "$url32" "$url64" "$urlarmhf" "$urlarm64" -v $version -t "${{ inputs.token }}" -s "${{ inputs.packageid }}"
       shell: pwsh
-    - run: |
+    - if: inputs.forcearch
+      run: |
         $url32="${{ inputs.url32 }}"
         $url64="${{ inputs.url64 }}"
         $version="${{ inputs.version }}"
@@ -123,7 +125,8 @@ runs:
         Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
         ./wingetcreate-self-contained.exe update -u "$url32|x86" "$url64|x64" -v $version -t "${{ inputs.token }}" -s "${{ inputs.packageid }}"
       shell: pwsh
-    - run: |
+    - if: inputs.forcearch
+      run: |
         $url32="${{ inputs.url32 }}"
         $url64="${{ inputs.url64 }}"
         $urlarmhf="${{ inputs.urlarmhf }}"
