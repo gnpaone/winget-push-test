@@ -133,5 +133,5 @@ steps:
     run: |
       $github = Get-Content '${{ github.event_path }}' | ConvertFrom-Json
       $installerUrl = $github.release.assets | Where-Object -Property name -match ${env:packageFileName} | Select -ExpandProperty browser_download_url -First 1
-      $version = $github.event.release.tag_name.Replace('v', '') #if "v" is present in tag name, or else `$github.event.release.tag_name`
+      $version = $github.event.release.tag_name.Replace('v', '') #if "v" is present in tag name, or else '$github.event.release.tag_name'
 ```
