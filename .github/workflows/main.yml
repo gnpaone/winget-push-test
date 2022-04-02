@@ -53,7 +53,7 @@ jobs:
           id: test.package
           user: microsoft
           repo: winget-pkgs
-        id: single
+        id: singlearm
       - run: |
           $url="${{ steps.singlearm.with.url }}"
           $urlarm="${{ steps.singlearm.with.urlarm }}"
