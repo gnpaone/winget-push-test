@@ -19,7 +19,6 @@ inputs:
   token:
     description: 'Personal access token (auto-populated) to submit package to winget repo'
     required: true
-    default: '${{ secrets.GITHUB_TOKEN }}'
   packageid:
     description: 'Package ID of your winget package'
     required: true
