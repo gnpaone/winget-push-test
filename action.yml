@@ -1,0 +1,44 @@
+name: 'Winget Push Test'
+description: 'Push winget packages to a test winget repository using Github workflow instead of pushing to the main winget repository (https://github.com/microsoft/winget-pkgs) via workflow'
+inputs:
+  url:
+    description: 'Package url'
+  urlarm:
+    description: 'Package url (arm)'
+  url32:
+    description: 'Package url (32-bit)'
+  url64:
+    description: 'Package url (64-bit)'
+  urlarmhf:
+    description: 'Package url (armhf)'
+  urlarm64:
+    description: 'Package url (arm64)'
+  version:
+    description: 'Version of your winget package. Recommended to not keep any letter behind version number'
+    required: true
+  token:
+    description: 'Personal access token (auto-populated) to submit package to winget repo'
+    required: true
+    default: ${{ secrets.GITHUB_TOKEN }}
+  packageid:
+    description: 'Package ID of your winget package'
+    required: true
+  user:
+    description: 'Github username where the test winget repo is created'
+    required: true
+    default: microsoft
+  repo:
+    description: 'Name of winget test repository'
+    required: true
+    default: winget-pkgs
+  forcearch:
+    description: Force the submitting architecture for the given package URLs
+    default: false
+runs:
+  using: "composite"
+  steps:
+    - run: echo Hello ${{ inputs.who-to-greet }}.
+      shell: bash
+branding:
+  icon: 'log-in'
+  color: 'orange'
