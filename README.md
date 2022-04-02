@@ -1,5 +1,5 @@
 # winget-push-test
-# ============
+# ===========
 
 Push winget packages to a test winget repository using Github workflow instead of pushing to the [main winget repository](https://github.com/microsoft/winget-pkgs) via workflow or directly to [main winget repository](https://github.com/microsoft/winget-pkgs) is supported too.
 
