@@ -120,7 +120,7 @@ steps:
 
   Winget test repository name.
   
-  ##### It's recommended to [clone](https://github.com/microsoft/winget-pkgs/generate) the [original repository](https://github.com/microsoft/winget-pkgs) instead of creating a fresh one for test winget repository purpose.
+  #### It's recommended to [clone](https://github.com/microsoft/winget-pkgs/generate) the [original repository](https://github.com/microsoft/winget-pkgs) instead of creating a fresh one for test winget repository purpose.
 
 * **`forcearch: true`** (default is `forcearch: false`)
 
