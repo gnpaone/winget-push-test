@@ -37,7 +37,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: |
+    - if: ${{ inputs.url != "" }}
+      run: |
         $url="${{ inputs.url }}"
         $version="${{ inputs.version }}"
         curl https://github.com/microsoft/winget-create/releases/latest/download/wingetcreate-self-contained.exe -O wingetcreate-self-contained.exe
@@ -49,7 +50,7 @@ runs:
         $pathTest | ConvertTo-Json | set-content $pathToJson
         Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
         ./wingetcreate-self-contained.exe update -u "$url" -v $version -t "${{ inputs.token }}" -s "${{ inputs.packageid }}"
-      shell: pwsh
+      shell: powershell
     - run: |
         $url="${{ inputs.url }}"
         $urlarm="${{ inputs.urlarm }}"
@@ -63,7 +64,7 @@ runs:
         $pathTest | ConvertTo-Json | set-content $pathToJson
         Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
         ./wingetcreate-self-contained.exe update -u "$url" "$urlarm" -v $version -t "${{ inputs.token }}" -s "${{ inputs.packageid }}"
-      shell: pwsh
+      shell: powershell
     - run: |
         $url32="${{ inputs.url32 }}"
         $url64="${{ inputs.url64 }}"
@@ -77,7 +78,7 @@ runs:
         $pathTest | ConvertTo-Json | set-content $pathToJson
         Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
         ./wingetcreate-self-contained.exe update -u "$url32" "$url64" -v $version -t "${{ inputs.token }}" -s "${{ inputs.packageid }}"
-      shell: pwsh
+      shell: powershell
     - run: |
         $url32="${{ inputs.url32 }}"
         $url64="${{ inputs.url64 }}"
@@ -92,7 +93,7 @@ runs:
         $pathTest | ConvertTo-Json | set-content $pathToJson
         Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
         ./wingetcreate-self-contained.exe update -u "$url32" "$url64" "$urlarm" -v $version -t "${{ inputs.token }}" -s "${{ inputs.packageid }}"
-      shell: pwsh
+      shell: powershell
     - run: |
         $url32="${{ inputs.url32 }}"
         $url64="${{ inputs.url64 }}"
@@ -108,7 +109,7 @@ runs:
         $pathTest | ConvertTo-Json | set-content $pathToJson
         Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
         ./wingetcreate-self-contained.exe update -u "$url32" "$url64" "$urlarmhf" "$urlarm64" -v $version -t "${{ inputs.token }}" -s "${{ inputs.packageid }}"
-      shell: pwsh
+      shell: powershell
     - if: inputs.forcearch
       run: |
         $url32="${{ inputs.url32 }}"
@@ -123,7 +124,7 @@ runs:
         $pathTest | ConvertTo-Json | set-content $pathToJson
         Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
         ./wingetcreate-self-contained.exe update -u "$url32|x86" "$url64|x64" -v $version -t "${{ inputs.token }}" -s "${{ inputs.packageid }}"
-      shell: pwsh
+      shell: powershell
     - if: inputs.forcearch
       run: |
         $url32="${{ inputs.url32 }}"
@@ -140,7 +141,7 @@ runs:
         $pathTest | ConvertTo-Json | set-content $pathToJson
         Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
         ./wingetcreate-self-contained.exe update -u "$url32|x86" "$url64|x64" "$urlarmhf|arm" "$urlarm64|arm64" -v $version -t "${{ inputs.token }}" -s "${{ inputs.packageid }}"
-      shell: pwsh
+      shell: powershell
 branding:
   icon: 'log-in'
   color: 'orange'
