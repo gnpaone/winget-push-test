@@ -1,5 +1,5 @@
 name: 'Winget Push Test'
-description: 'Push winget packages to a test winget repository using Github workflow instead of pushing to the main winget repository (https://github.com/microsoft/winget-pkgs) via workflow'
+description: 'Push packages to a test winget repository using Github workflow instead of pushing to the main winget repository via workflow'
 inputs:
   url:
     description: 'Package url'
