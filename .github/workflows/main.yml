@@ -23,7 +23,7 @@ jobs:
           url: https://github.com/test-user/test-repo/releases/download/v1.0.0/test-url.exe
           version: 1.0.0
           token: ${{ secrets.GITHUB_TOKEN }}
-          id: test.package
+          packageid: test.package
           user: microsoft
           repo: winget-pkgs
         id: single
@@ -38,7 +38,7 @@ jobs:
           $pathTest.WindowsPackageManagerRepository.name = "${{ steps.single.with.repo }}"
           $pathTest | ConvertTo-Json | set-content $pathToJson
           Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
-          ./wingetcreate-self-contained.exe update -u "$url" -v $version -t "${{ steps.single.with.token }}" -s "${{ steps.single.with.id }}"
+          ./wingetcreate-self-contained.exe update -u "$url" -v $version -t "${{ steps.single.with.token }}" -s "${{ steps.single.with.packageid }}"
 
   singlearm-url:
     runs-on: windows-latest
@@ -50,7 +50,7 @@ jobs:
           urlarm: https://github.com/test-user/test-repo/releases/download/v1.0.0/test-urlarm.exe
           version: 1.0.0
           token: ${{ secrets.GITHUB_TOKEN }}
-          id: test.package
+          packageid: test.package
           user: microsoft
           repo: winget-pkgs
         id: singlearm
@@ -66,7 +66,7 @@ jobs:
           $pathTest.WindowsPackageManagerRepository.name = "${{ steps.singlearm.with.repo }}"
           $pathTest | ConvertTo-Json | set-content $pathToJson
           Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
-          ./wingetcreate-self-contained.exe update -u "$url" "$urlarm" -v $version -t "${{ steps.singlearm.with.token }}" -s "${{ steps.singlearm.with.id }}"
+          ./wingetcreate-self-contained.exe update -u "$url" "$urlarm" -v $version -t "${{ steps.singlearm.with.token }}" -s "${{ steps.singlearm.with.packageid }}"
       
   multi-url:
     runs-on: windows-latest
@@ -78,7 +78,7 @@ jobs:
           url64: https://github.com/test-user/test-repo/releases/download/v1.0.0/test-url64.exe
           version: 1.0.0
           token: ${{ secrets.GITHUB_TOKEN }}
-          id: test.package
+          packageid: test.package
           user: microsoft
           repo: winget-pkgs
         id: multi
@@ -94,7 +94,7 @@ jobs:
           $pathTest.WindowsPackageManagerRepository.name = "${{ steps.multi.with.repo }}"
           $pathTest | ConvertTo-Json | set-content $pathToJson
           Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
-          ./wingetcreate-self-contained.exe update -u "$url32" "$url64" -v $version -t "${{ steps.multi.with.token }}" -s "${{ steps.multi.with.id }}"
+          ./wingetcreate-self-contained.exe update -u "$url32" "$url64" -v $version -t "${{ steps.multi.with.token }}" -s "${{ steps.multi.with.packageid }}"
     
   multiarm-url:
     runs-on: windows-latest
@@ -107,7 +107,7 @@ jobs:
           urlarm: https://github.com/test-user/test-repo/releases/download/v1.0.0/test-urlarm.exe
           version: 1.0.0
           token: ${{ secrets.GITHUB_TOKEN }}
-          id: test.package
+          packageid: test.package
           user: microsoft
           repo: winget-pkgs
         id: multiarm
@@ -124,7 +124,7 @@ jobs:
           $pathTest.WindowsPackageManagerRepository.name = "${{ steps.multiarm.with.repo }}"
           $pathTest | ConvertTo-Json | set-content $pathToJson
           Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
-          ./wingetcreate-self-contained.exe update -u "$url32" "$url64" "$urlarm" -v $version -t "${{ steps.multiarm.with.token }}" -s "${{ steps.multiarm.with.id }}"
+          ./wingetcreate-self-contained.exe update -u "$url32" "$url64" "$urlarm" -v $version -t "${{ steps.multiarm.with.token }}" -s "${{ steps.multiarm.with.packageid }}"
 
   multiarmmulti-url:
     runs-on: windows-latest
@@ -138,7 +138,7 @@ jobs:
           urlarm64: https://github.com/test-user/test-repo/releases/download/v1.0.0/test-urlarm64.exe
           version: 1.0.0
           token: ${{ secrets.GITHUB_TOKEN }}
-          id: test.package
+          packageid: test.package
           user: microsoft
           repo: winget-pkgs
         id: multiarmmulti
@@ -156,7 +156,7 @@ jobs:
           $pathTest.WindowsPackageManagerRepository.name = "${{ steps.multiarmmulti.with.repo }}"
           $pathTest | ConvertTo-Json | set-content $pathToJson
           Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
-          ./wingetcreate-self-contained.exe update -u "$url32" "$url64" "$urlarmhf" "$urlarm64" -v $version -t "${{ steps.multiarmmulti.with.token }}" -s "${{ steps.multiarmmulti.with.id }}"
+          ./wingetcreate-self-contained.exe update -u "$url32" "$url64" "$urlarmhf" "$urlarm64" -v $version -t "${{ steps.multiarmmulti.with.token }}" -s "${{ steps.multiarmmulti.with.packageid }}"
       
   multi-url-arch:
     runs-on: windows-latest
@@ -168,7 +168,7 @@ jobs:
           url64: https://github.com/test-user/test-repo/releases/download/v1.0.0/test-url64.exe
           version: 1.0.0
           token: ${{ secrets.GITHUB_TOKEN }}
-          id: test.package
+          packageid: test.package
           user: microsoft
           repo: winget-pkgs
           forcearch: true
@@ -185,7 +185,7 @@ jobs:
           $pathTest.WindowsPackageManagerRepository.name = "${{ steps.multi.with.repo }}"
           $pathTest | ConvertTo-Json | set-content $pathToJson
           Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
-          ./wingetcreate-self-contained.exe update -u "$url32|x86" "$url64|x64" -v $version -t "${{ steps.multi.with.token }}" -s "${{ steps.multi.with.id }}"
+          ./wingetcreate-self-contained.exe update -u "$url32|x86" "$url64|x64" -v $version -t "${{ steps.multi.with.token }}" -s "${{ steps.multi.with.packageid }}"
     
   multiarmmulti-url-arch:
     runs-on: windows-latest
@@ -199,7 +199,7 @@ jobs:
           urlarm64: https://github.com/test-user/test-repo/releases/download/v1.0.0/test-urlarm64.exe
           version: 1.0.0
           token: ${{ secrets.GITHUB_TOKEN }}
-          id: test.package
+          packageid: test.package
           user: microsoft
           repo: winget-pkgs
           forcearch: true
@@ -218,5 +218,5 @@ jobs:
           $pathTest.WindowsPackageManagerRepository.name = "${{ steps.multiarmmulti.with.repo }}"
           $pathTest | ConvertTo-Json | set-content $pathToJson
           Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
-          ./wingetcreate-self-contained.exe update -u "$url32|x86" "$url64|x64" "$urlarmhf|arm" "$urlarm64|arm64" -v $version -t "${{ steps.multiarmmulti.with.token }}" -s "${{ steps.multiarmmulti.with.id }}"
+          ./wingetcreate-self-contained.exe update -u "$url32|x86" "$url64|x64" "$urlarmhf|arm" "$urlarm64|arm64" -v $version -t "${{ steps.multiarmmulti.with.token }}" -s "${{ steps.multiarmmulti.with.packageid }}"
       
