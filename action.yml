@@ -32,12 +32,11 @@ inputs:
     default: winget-pkgs
   forcearch:
     description: 'Force the submitting architecture for the given package URLs'
-    type: boolean
     default: false
 runs:
   using: "composite"
   steps:
-    - if: ${{ inputs.url != "" }}
+    - if: ${{ inputs.url != "" && inputs.urlarm == "" && inputs.url64 == "" && inputs.urlarm64 == "" && inputs.forcearch == 'false' }}
       run: |
         $url="${{ inputs.url }}"
         $version="${{ inputs.version }}"
@@ -51,7 +50,8 @@ runs:
         Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
         ./wingetcreate-self-contained.exe update -u "$url" -v $version -t "${{ inputs.token }}" -s "${{ inputs.packageid }}"
       shell: powershell
-    - run: |
+    - if: ${{ inputs.url != "" && inputs.urlarm != "" && inputs.url64 == "" && inputs.urlarm64 == "" && inputs.forcearch == 'false' }}
+      run: |
         $url="${{ inputs.url }}"
         $urlarm="${{ inputs.urlarm }}"
         $version="${{ inputs.version }}"
@@ -65,7 +65,8 @@ runs:
         Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
         ./wingetcreate-self-contained.exe update -u "$url" "$urlarm" -v $version -t "${{ inputs.token }}" -s "${{ inputs.packageid }}"
       shell: powershell
-    - run: |
+    - if: ${{ inputs.url == "" && inputs.urlarm == "" && inputs.url64 != "" && inputs.urlarm64 == "" && inputs.forcearch == 'false' }}
+      run: |
         $url32="${{ inputs.url32 }}"
         $url64="${{ inputs.url64 }}"
         $version="${{ inputs.version }}"
@@ -79,7 +80,8 @@ runs:
         Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
         ./wingetcreate-self-contained.exe update -u "$url32" "$url64" -v $version -t "${{ inputs.token }}" -s "${{ inputs.packageid }}"
       shell: powershell
-    - run: |
+    - if: ${{ inputs.url == "" && inputs.urlarm != "" && inputs.url64 != "" && inputs.urlarm64 == "" && inputs.forcearch == 'false' }}
+      run: |
         $url32="${{ inputs.url32 }}"
         $url64="${{ inputs.url64 }}"
         $urlarm="${{ inputs.urlarm }}"
@@ -94,7 +96,8 @@ runs:
         Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
         ./wingetcreate-self-contained.exe update -u "$url32" "$url64" "$urlarm" -v $version -t "${{ inputs.token }}" -s "${{ inputs.packageid }}"
       shell: powershell
-    - run: |
+    - if: ${{ inputs.url == "" && inputs.urlarm == "" && inputs.url64 != "" && inputs.urlarm64 != "" && inputs.forcearch == 'false' }}
+      run: |
         $url32="${{ inputs.url32 }}"
         $url64="${{ inputs.url64 }}"
         $urlarmhf="${{ inputs.urlarmhf }}"
@@ -110,7 +113,7 @@ runs:
         Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
         ./wingetcreate-self-contained.exe update -u "$url32" "$url64" "$urlarmhf" "$urlarm64" -v $version -t "${{ inputs.token }}" -s "${{ inputs.packageid }}"
       shell: powershell
-    - if: inputs.forcearch
+    - if: ${{ inputs.url == "" && inputs.urlarm == "" && inputs.url64 != "" && inputs.urlarm64 == "" && inputs.forcearch == 'true' }}
       run: |
         $url32="${{ inputs.url32 }}"
         $url64="${{ inputs.url64 }}"
@@ -125,7 +128,7 @@ runs:
         Copy-Item -Path $env:LOCALAPPDATA\Microsoft\WindowsPackageManagerManifestCreator\settings.json -Destination C:\settings.json -PassThru
         ./wingetcreate-self-contained.exe update -u "$url32|x86" "$url64|x64" -v $version -t "${{ inputs.token }}" -s "${{ inputs.packageid }}"
       shell: powershell
-    - if: inputs.forcearch
+    - if: ${{ inputs.url == "" && inputs.urlarm == "" && inputs.url64 != "" && inputs.urlarm64 != "" && inputs.forcearch == 'true' }}
       run: |
         $url32="${{ inputs.url32 }}"
         $url64="${{ inputs.url64 }}"
