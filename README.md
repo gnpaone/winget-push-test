@@ -135,3 +135,5 @@ steps:
       $installerUrl = $github.release.assets | Where-Object -Property name -match ${env:packageFileName} | Select -ExpandProperty browser_download_url -First 1
       $version = $github.event.release.tag_name.Replace('v', '') #if "v" is present in tag name, or else '$github.event.release.tag_name'
 ```
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/gnpaone)
