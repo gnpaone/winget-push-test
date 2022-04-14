@@ -104,9 +104,9 @@ steps:
 
   **Required.** Version of your winget package. Recommended to not keep any letter behind version number (can replace using `Replace` function)
 
-* **`token: SubmitToken`** (default - `${{ secrets.GITHUB_TOKEN }}`)
+* **`token: SubmitToken`**
 
-  Token required to submit package to winget repo.
+  **Required.** Token required to submit package to winget repo.
 
 * **`packageid: PackageID`**
 
